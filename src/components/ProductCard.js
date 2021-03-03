@@ -8,6 +8,13 @@ const ProductCard = ({product}) => {
       <View style={{justifyContent: 'space-between', flex: 1}}>
         <Text>{product.title}</Text>
         <Text style={{fontWeight: 'bold'}}>{product.price}</Text>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            color: product.inStock ? 'black' : 'red',
+          }}>
+          {product.inStock ? 'In stock' : 'Not available'}
+        </Text>
       </View>
     </View>
   );

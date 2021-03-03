@@ -5,13 +5,25 @@ import {ProductCard} from './components/ProductCard';
 
 const Stok = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [displayList, setDisplayList] = useState([]);
   const renderListItem = ({item}) => <ProductCard product={item} />;
 
-  // useEffect(() => {
-  //   Alert.alert('Clarushop', 'Wellcome, Enjoy your shopping..');
-  // }, []);
+  useEffect(() => {
+    // Alert.alert('Clarushop', 'Wellcome, Enjoy your shopping..');
+    setDisplayList(productData);
+  }, []);
+
+  useEffect(() => {
+    const filteredValue = productData.filter((item) => {
+      const text = searchValue.toUpperCase();
+      const productTitle = item.title.toUpperCase();
+
+      return productTitle.indexOf(text) > -1;
+    });
+    setDisplayList(filteredValue);
+  }, [searchValue]);
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Text style={styles.banner}>ClaruShop</Text>
       <View style={styles.searchBar}>
         <TextInput
@@ -21,7 +33,7 @@ const Stok = () => {
       </View>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
-        data={productData}
+        data={displayList}
         renderItem={renderListItem}
         numColumns={2}
       />
